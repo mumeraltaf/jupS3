@@ -58,7 +58,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
     const content = new S3BrowserWidget();
         // @ts-ignore
     const widget = new MainAreaWidget({ content });
-    widget.title.label = 'S3 Browser';
+    widget.title.label = 'AURIN Data Browser';
     app.shell.add(widget, 'left');
 
   }
@@ -75,7 +75,12 @@ class S3BrowserWidget extends Widget {
 
     this.node.innerHTML = `
       <div>
-        <h2>S3 Bucket Contents</h2>
+        <img src="https://aurin.org.au/wp-content/uploads/2016/12/AURIN-ORG-AU-1.jpg" 
+            width="100" 
+            height="60" 
+        />
+        <h2>AURIN Data</h2>
+        <p>Right click any data file to save it to your home directory on the server:</p>
         <ul id="s3-contents"></ul>
         <ul id="s3-contents" class="jp-DirListing-content"></ul>
       </div>
@@ -127,7 +132,7 @@ class S3BrowserWidget extends Widget {
     const menu = document.createElement('ul');
     menu.classList.add('context-menu');
     const menuItem = document.createElement('li');
-    menuItem.textContent = 'Custom Command';
+    menuItem.textContent = 'Download to your home directory';
     menuItem.addEventListener('click', (e) => {
       console.log('clicked:', textContent);
       const params = { file: textContent || '' }; // Example parameter

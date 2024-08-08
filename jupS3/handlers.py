@@ -34,6 +34,9 @@ class createOrAppendToFile(APIHandler):
     # Jupyter server
     @tornado.web.authenticated
     def get(self):
+
+        print(os.getcwd());
+
         file_name = self.get_argument('file', 'default-file')
         print(file_name)
         listOfFiles = ["first-file", "second-file", "third-file"]
