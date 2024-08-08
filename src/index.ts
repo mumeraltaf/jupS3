@@ -38,6 +38,17 @@ const plugin: JupyterFrontEndPlugin<void> = {
           `The jupS3 server extension appears to be missing.\n${reason}`
         );
       });
+
+    requestAPI<any>('get-bucket-contents')
+      .then(data => {
+        console.log(data);
+      })
+      .catch(reason => {
+        console.error(
+          `Error getting S3 bucket contents.\n${reason}`
+        );
+      });
+
   }
 };
 
