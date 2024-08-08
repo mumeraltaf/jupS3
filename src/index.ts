@@ -19,7 +19,7 @@ import {
 
 import { ISettingRegistry } from '@jupyterlab/settingregistry';
 
-import { requestAPI } from './handler';
+import {requestAPI, requestAPIWithParams} from './handler';
 
 /**
  * Initialization data for the jupS3 extension.
@@ -77,6 +77,7 @@ class S3BrowserWidget extends Widget {
       <div>
         <h2>S3 Bucket Contents</h2>
         <ul id="s3-contents"></ul>
+        <ul id="s3-contents" class="jp-DirListing-content"></ul>
       </div>
     `;
 
@@ -85,6 +86,8 @@ class S3BrowserWidget extends Widget {
         const ul = this.node.querySelector('#s3-contents') as HTMLUListElement;
       data.data.forEach((item: string) => {
         const li = document.createElement('li');
+        li.classList.add('jp-DirListing-item');
+        li.addEventListener('contextmenu', this.handleRightClick.bind(this));
         li.textContent = item;
         ul.appendChild(li);
       });
@@ -96,6 +99,56 @@ class S3BrowserWidget extends Widget {
       });
 
   }
+
+
+
+  handleRightClick(event: MouseEvent) {
+    event.preventDefault();
+    const target = event.target as HTMLElement;
+    if (target && target.tagName === 'LI') {
+      console.log('Right-clicked item text:', target.textContent);
+    }
+    const contextMenu = this.createContextMenu(target.textContent);
+
+    document.body.appendChild(contextMenu);
+    contextMenu.style.top = `${event.clientY}px`;
+    contextMenu.style.left = `${event.clientX}px`;
+
+    const removeContextMenu = () => {
+      document.body.removeChild(contextMenu);
+      document.removeEventListener('click', removeContextMenu);
+    };
+
+    document.addEventListener('click', removeContextMenu);
+  }
+
+  createContextMenu(textContent: string | null): HTMLUListElement {
+
+    const menu = document.createElement('ul');
+    menu.classList.add('context-menu');
+    const menuItem = document.createElement('li');
+    menuItem.textContent = 'Custom Command';
+    menuItem.addEventListener('click', (e) => {
+      console.log('clicked:', textContent);
+      const params = { file: textContent || '' }; // Example parameter
+
+      requestAPIWithParams<any>('create-or-append-to-file', {}, params)
+        .then(data => {
+          console.log(data);
+        })
+        .catch(reason => {
+          console.error(
+            `The jupS3 server extension appears to be missing.\n${reason}`
+          );
+      });
+
+    });
+
+    menu.appendChild(menuItem);
+    return menu;
+  }
+
+
 
 }
 
