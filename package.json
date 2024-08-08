@@ -57,14 +57,17 @@
         "watch:labextension": "jupyter labextension watch ."
     },
     "dependencies": {
-        "@jupyterlab/application": "^4.0.0",
-        "@jupyterlab/coreutils": "^6.0.0",
-        "@jupyterlab/services": "^7.0.0",
-        "@jupyterlab/settingregistry": "^4.0.0"
+        "@jupyterlab/application": "^4.2.3",
+        "@jupyterlab/apputils": "^4.3.3",
+        "@jupyterlab/coreutils": "^6.2.3",
+        "@jupyterlab/filebrowser": "^4.2.3",
+        "@jupyterlab/services": "^7.2.3",
+        "@jupyterlab/settingregistry": "^4.2.3",
+        "@lumino/widgets": "~2.3.2"
     },
     "devDependencies": {
-        "@jupyterlab/builder": "^4.0.0",
-        "@jupyterlab/testutils": "^4.0.0",
+        "@jupyterlab/builder": "^4.2.3",
+        "@jupyterlab/testutils": "^4.2.3",
         "@types/jest": "^29.2.0",
         "@types/json-schema": "^7.0.11",
         "@types/react": "^18.0.26",
@@ -206,5 +209,6 @@
             "selector-no-vendor-prefix": null,
             "value-no-vendor-prefix": null
         }
-    }
+    },
+    "packageManager": "yarn@4.4.0"
 }

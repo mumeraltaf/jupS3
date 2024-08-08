@@ -3,6 +3,20 @@ import {
   JupyterFrontEndPlugin
 } from '@jupyterlab/application';
 
+import {
+  MainAreaWidget
+} from '@jupyterlab/apputils';
+
+// import {
+//   IFileBrowserFactory
+// } from '@jupyterlab/filebrowser';
+
+import {
+  Widget
+} from '@lumino/widgets';
+
+
+
 import { ISettingRegistry } from '@jupyterlab/settingregistry';
 
 import { requestAPI } from './handler';
@@ -39,9 +53,41 @@ const plugin: JupyterFrontEndPlugin<void> = {
         );
       });
 
-    requestAPI<any>('get-bucket-contents')
+    
+
+    const content = new S3BrowserWidget();
+        // @ts-ignore
+    const widget = new MainAreaWidget({ content });
+    widget.title.label = 'S3 Browser';
+    app.shell.add(widget, 'left');
+
+  }
+};
+
+
+class S3BrowserWidget extends Widget {
+  constructor() {
+    super();
+    this.addClass('jp-S3BrowserWidget');
+    this.id = 's3-browser-widget';
+    this.title.label = 'S3 Browser';
+    this.title.closable = true;
+
+    this.node.innerHTML = `
+      <div>
+        <h2>S3 Bucket Contents</h2>
+        <ul id="s3-contents"></ul>
+      </div>
+    `;
+
+     requestAPI<any>('get-bucket-contents')
       .then(data => {
-        console.log(data);
+        const ul = this.node.querySelector('#s3-contents') as HTMLUListElement;
+      data.data.forEach((item: string) => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        ul.appendChild(li);
+      });
       })
       .catch(reason => {
         console.error(
@@ -50,6 +96,9 @@ const plugin: JupyterFrontEndPlugin<void> = {
       });
 
   }
-};
+
+}
+
+
 
 export default plugin;
