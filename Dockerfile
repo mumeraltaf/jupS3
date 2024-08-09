@@ -1,4 +1,4 @@
-FROM quay.io/jupyter/datascience-notebook:notebook-7.2.1
+FROM quay.io/jupyter/datascience-notebook:lab-4.2.4
 
 RUN jupyter labextension disable @jupyterlab/docmanager-extension:download \
     && jupyter labextension disable @jupyterlab/filebrowser-extension:download
