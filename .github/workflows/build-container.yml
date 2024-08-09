@@ -18,16 +18,9 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-      #     - name: Login to GitHub Container Registry
-      #       uses: docker/login-action@v2
-      #       with:
-      #         registry: ghcr.io
-      #         username: ${{ github.repository_owner }}
-      #         password: ${{ secrets.GITHUB_TOKEN }}
-      # repo ghcr.io/
       - name: Build and push image
         uses: docker/build-push-action@v3
         with:
           push: true
           tags: |
-            uomumeraltaf/datascience-notebook:notebook-7.2.1c
+            uomumeraltaf/datascience-notebook:lab-4.2.4-a
