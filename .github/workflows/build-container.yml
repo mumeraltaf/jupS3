@@ -30,4 +30,4 @@ jobs:
         with:
           push: true
           tags: |
-            uomumeraltaf/datascience-notebook:notebook-7.2.1a
+            uomumeraltaf/datascience-notebook:notebook-7.2.1b
