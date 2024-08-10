@@ -1,11 +1,18 @@
 import json
 import boto3
 import os
+import logging
 
 
 from jupyter_server.base.handlers import APIHandler
 from jupyter_server.utils import url_path_join
 import tornado
+
+
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
+
 
 class ExampleRoute(APIHandler):
     # The following decorator should be present on all verb methods (head, get, post,
@@ -13,6 +20,7 @@ class ExampleRoute(APIHandler):
     # Jupyter server
     @tornado.web.authenticated
     def get(self):
+        logger.info("GET request received at /jupS3/get-example")
         self.finish(json.dumps({
             "data": "This is /jupS3/get-example endpoint!"
         }))
@@ -46,17 +54,20 @@ class createOrAppendToFile(APIHandler):
     # Jupyter server
     @tornado.web.authenticated
     def get(self):
-
+        print(self.get_current_user())
+        logger.info(f"Current user: {self.get_current_user()}")
         print(os.getcwd());
         bucket_name = 'infra-test-1'
         file_name = self.get_argument('file', 'default-file')
-        print("filename:", file_name)
+        logger.info(f"Download file from S3: {file_name}")
         download_path = os.path.join(os.getcwd(), file_name.split("/")[-1])
 
         try:
             s3.download_file(bucket_name, file_name, download_path)
         except Exception as e:
-            print(e)
+            logger.error(f"Error downloading file: {e}")
+
+        logger.info(f"Download complete: {file_name}")
 
         self.finish(json.dumps({
             "data": "listOfFiles"
