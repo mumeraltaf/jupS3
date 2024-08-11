@@ -53,7 +53,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
         );
       });
 
-    
+
 
     const content = new S3BrowserWidget();
         // @ts-ignore
@@ -76,13 +76,16 @@ class S3BrowserWidget extends Widget {
     this.node.innerHTML = `
       <div>
         <img src="https://aurin.org.au/wp-content/uploads/2016/12/AURIN-ORG-AU-1.jpg" 
-            width="100" 
-            height="60" 
+            width="214.4" 
+            height="100" 
         />
-        <h2>AURIN Data</h2>
-        <p>Right click any data file to save it to your home directory on the server:</p>
+        <h2 style="text-align:center;">AURIN Data</h2>
+        <hr>
+        <p style="font-style:italic;text-decoration:underline;">Right click any data file to save it to your home directory on the server:</p>
+        <hr>
         <ul id="s3-contents"></ul>
         <ul id="s3-contents" class="jp-DirListing-content"></ul>
+        <hr>
       </div>
     `;
 
@@ -132,7 +135,7 @@ class S3BrowserWidget extends Widget {
     const menu = document.createElement('ul');
     menu.classList.add('context-menu');
     const menuItem = document.createElement('li');
-    menuItem.textContent = 'Download to your home directory';
+    menuItem.textContent = 'Checkout to your home directory';
     menuItem.addEventListener('click', (e) => {
       console.log('clicked:', textContent);
       const params = { file: textContent || '' }; // Example parameter
@@ -153,10 +156,5 @@ class S3BrowserWidget extends Widget {
     return menu;
   }
 
-
-
 }
-
-
-
 export default plugin;
