@@ -70,7 +70,7 @@ class S3BrowserWidget extends Widget {
     super();
     this.addClass('jp-S3BrowserWidget');
     this.id = 's3-browser-widget';
-    widget.title.label = 'AURIN Data Browser';
+    this.title.label = 'AURIN Data Browser';
     this.title.closable = true;
 
     this.node.innerHTML = `
