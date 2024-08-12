@@ -20,9 +20,9 @@ jobs:
         with:
           node-version: 22
           cache: 'npm'
-      - name: Install Yarn
+      - name: NPM Install
         run: |
-          npm install -g yarn
+          npm install
           yarn set version stable
 
       - name: Install dependencies
