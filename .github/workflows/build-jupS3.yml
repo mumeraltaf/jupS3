@@ -41,3 +41,7 @@ jobs:
         with:
           name: dist
           path: dist/
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          password: ${{ secrets.PYPI_DEPLOY_KEY }}

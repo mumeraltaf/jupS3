@@ -58,7 +58,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
     const content = new S3BrowserWidget();
         // @ts-ignore
     const widget = new MainAreaWidget({ content });
-    widget.title.label = 'AURIN Data Browser';
+    widget.title.label = 'S3 Browser';
     app.shell.add(widget, 'left');
 
   }

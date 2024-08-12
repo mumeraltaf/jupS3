@@ -22,7 +22,7 @@ class ExampleRoute(APIHandler):
     def get(self):
         logger.info("GET request received at /jupS3/get-example")
         self.finish(json.dumps({
-            "data": "This is /jupS3/get-example endpoint!"
+            "data": "This is /jupS3/get-example endpoint! v5"
         }))
 
 s3 = boto3.client(
