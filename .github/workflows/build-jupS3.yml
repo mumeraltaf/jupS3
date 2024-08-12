@@ -25,7 +25,7 @@ jobs:
           npm install
           yarn set version stable
           corepack enable
-          yarn config set -H enableImmutableInstalls fals
+          yarn config set -H enableImmutableInstalls false
 
       - name: Install dependencies
         run: |
