@@ -1,6 +1,8 @@
 FROM quay.io/jupyter/datascience-notebook:lab-4.2.4
 
 
+USER root
+
 # Docker install
 RUN apt-get update && apt-get install --no-install-recommends -y \
        apt-transport-https \
@@ -17,7 +19,15 @@ RUN add-apt-repository \
        stable"
 RUN apt-get update && apt-get install --no-install-recommends -y docker-ce docker-ce-cli containerd.io
 
+RUN sudo groupadd docker
+RUN sudo usermod -aG docker $NB_USER
+
 RUN jupyter labextension disable @jupyterlab/docmanager-extension:download \
     && jupyter labextension disable @jupyterlab/filebrowser-extension:download
 
 RUN pip install -Iv jupS3==0.0.6 geopandas==1.0.1
+
+# Switch back to jovyan to avoid accidental container runs as root
+USER ${NB_UID}
+
+WORKDIR "${HOME}"
