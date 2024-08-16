@@ -19,7 +19,7 @@ RUN add-apt-repository \
        stable"
 RUN apt-get update && apt-get install --no-install-recommends -y docker-ce docker-ce-cli containerd.io
 
-RUN sudo groupadd docker
+#RUN sudo groupadd docker
 RUN sudo usermod -aG docker $NB_USER
 
 RUN jupyter labextension disable @jupyterlab/docmanager-extension:download \
