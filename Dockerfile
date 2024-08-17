@@ -84,6 +84,7 @@ USER ${NB_UID}
 WORKDIR "${HOME}"
 
 COPY container-start.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/container-start.sh
 
 # Set systemd as entrypoint.
-ENTRYPOINT [ "container-start.sh" ]
+ENTRYPOINT [ "/usr/local/bin/container-start.sh" ]
