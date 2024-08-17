@@ -78,13 +78,16 @@ RUN jupyter labextension disable @jupyterlab/docmanager-extension:download \
 
 RUN pip install -Iv jupS3==0.0.6 geopandas==1.0.1
 
+
+COPY container-start.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/container-start.sh
+
 # Switch back to jovyan to avoid accidental container runs as root
 USER ${NB_UID}
 
 WORKDIR "${HOME}"
 
-COPY container-start.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/container-start.sh
+
 
 # Set systemd as entrypoint.
 ENTRYPOINT [ "/usr/local/bin/container-start.sh" ]
