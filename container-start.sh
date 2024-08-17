@@ -4,6 +4,6 @@
 
 set -e
 
-/sbin/init --log-level=err
+dockerd > /var/log/dockerd.log 2>&1 &
 
 tini -g -- start.sh
