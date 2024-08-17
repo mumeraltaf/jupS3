@@ -83,5 +83,7 @@ USER ${NB_UID}
 
 WORKDIR "${HOME}"
 
+COPY container-start.sh.sh /usr/local/bin/
+
 # Set systemd as entrypoint.
-ENTRYPOINT [ "/sbin/init", "--log-level=err" ]
+ENTRYPOINT [ "container-start.sh" ]
