@@ -68,7 +68,7 @@ RUN add-apt-repository \
        "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
        $(lsb_release -cs) \
        stable"
-RUN apt-get update && apt-get install --no-install-recommends -y docker-ce docker-ce-cli containerd.io
+RUN apt-get update && apt-get install --no-install-recommends -y docker-ce docker-ce-cli docker-compose-plugin containerd.io
 
 #RUN sudo groupadd docker
 RUN sudo usermod -aG docker $NB_USER
@@ -76,7 +76,7 @@ RUN sudo usermod -aG docker $NB_USER
 RUN jupyter labextension disable @jupyterlab/docmanager-extension:download \
     && jupyter labextension disable @jupyterlab/filebrowser-extension:download
 
-RUN pip install -Iv jupS3==0.0.6 geopandas==1.0.1
+RUN pip install -Iv jupS3==0.0.6 geopandas==1.0.1 jupyterlab_iframe
 
 
 COPY start.sh /usr/local/bin/
